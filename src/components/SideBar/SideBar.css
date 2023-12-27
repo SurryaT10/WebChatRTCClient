@@ -1,0 +1,7 @@
+.chat__sidebar {
+    height: 100vh;
+    color: #fff;
+    background: #333744;
+    width: 225px;
+    overflow-y: scroll;
+}
