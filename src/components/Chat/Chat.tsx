@@ -15,8 +15,16 @@ function Chat() {
     const [ users, setUsers ] = useState<User[]>([]);
 
     useEffect(() => {
-        console.log('mounting');
+        socket.emit('join', { userName, roomName }, async (error: string) => {
+            if (error) {
+                alert(error);
+            } else {
+                console.log('joined');
+            }
+        });
+        
         const handleNewMessage = (message: MessagesProps) => {
+            if (userName === message.userName) message.userName = 'You';
             setMessages((prevMessages) => [
                 ...prevMessages,
                 message
@@ -31,11 +39,10 @@ function Chat() {
         socket.on('roomData', handleRoomData);
 
         return () => {
-            console.log("component unmounting");
-            // socket.off('message', handleNewMessage);
-            // socket.off('roomData', handleRoomData);
+            socket.off('message', handleNewMessage);
+            socket.off('roomData', handleRoomData);
         }
-      }, []);
+      }, [message, users, roomName, userName]);
 
     const sendMessage = (event: MouseEvent) => {
         event.preventDefault();

@@ -9,13 +9,15 @@ function Login() {
     const navigate = useNavigate()
 
     const joinChat = async () => {
-        socket.emit('join', { userName, roomName }, async (error: string) => {
-            if (error) {
-                alert(error);
-            } else {
-                await navigate('/chat', { state: { userName, roomName }});
-            }
-        });
+        // socket.emit('join', { userName, roomName }, async (error: string) => {
+        //     if (error) {
+        //         alert(error);
+        //     } else {
+        //         await navigate('/chat', { state: { userName, roomName }});
+        //     }
+        // });
+
+        navigate('/chat', { state: { userName, roomName }});
     }
 
     const handleClick = (event: MouseEvent) => {
